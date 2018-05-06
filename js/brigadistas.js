@@ -1,4 +1,3 @@
-
 /**
  * Find in array an object
  * @param {*} myArray Arreglo en el cual se va a buscar
@@ -15,7 +14,8 @@ function arrayObjectIndexOf(myArray, searchTerm, property) {
 var database = firebase.database();
 var referenciajeffrey = firebase.database().ref('Usuarios');
 var starCountRef = firebase.database().ref('Usuarios');
-var Brigadistap, BrigadistasActivos = document.getElementById('BrigadistasActivos'), Checker, BrigadistasActivosCont = 0;
+var Brigadistap, BrigadistasActivos = document.getElementById('BrigadistasActivos'),
+  Checker, BrigadistasActivosCont = 0;
 var Markers = [];
 
 
@@ -33,13 +33,16 @@ class Brigadista {
     this.Cedula = Data.Cedula;
     this.Celular = Data.Celular;
     this.Img_Perfil = Data.Img_Perfil;
-    // var storage = firebase.storage().ref("/Images/"+this.Cedula);
+
 
   }
   putMarker() {
 
     var marker = this.Marker = new google.maps.Marker({
-      position: { lat: this.Lat, lng: this.Long },
+      position: {
+        lat: this.Lat,
+        lng: this.Long
+      },
       map: map,
       Nombre: this.Nombre,
       Estado: this.Estado,
@@ -48,7 +51,7 @@ class Brigadista {
     });
 
     var tabla = ' <link rel="stylesheet" href="css/styles.css">' + '<table class="tg">' +
-      ' <tr><th class="tg-ikm8" rowspan="4">  <img src='+this.Img_Perfil+' alt="" height="120px" width="114px"></th> <th class="tg-cobo">Nombre</th><th class="tg-6nqv">' + this.Nombre + '</th>' +
+      ' <tr><th class="tg-ikm8" rowspan="4">  <img src=' + this.Img_Perfil + ' alt="" height="120px" width="114px"></th> <th class="tg-cobo">Nombre</th><th class="tg-6nqv">' + this.Nombre + '</th>' +
       '</tr> <tr><td class="tg-i3y8">Estado </td><td class="tg-6nqv">' + this.Estado + '</td>' +
       '</tr><tr><td class="tg-i3y8">Turno</td><td class="tg-6nqv">' + this.Cedula + '</td></tr><tr>' +
       '<td class="tg-i3y8">Fecha</td>' +
@@ -63,10 +66,25 @@ class Brigadista {
 
     });
     marker.addListener('click', function () {
-      //Debug
-      //console.log("Marcador llamado " + this.Nombre);
+     
       infowindow.open(map, marker);
     });
+    // marker.addListener('mouseover', function () {
+     
+    //   infowindow.open(map, marker);
+    // });
+  //   google.maps.event.addListener(marker, 'mouseout', function () {
+  //     setTimeout(() => {
+  //         infowindow.close(map);
+
+
+  //     }, 800);
+
+
+
+
+  // });
+
     return marker;
 
   }
@@ -99,7 +117,10 @@ starCountRef.on("child_changed", function (res) {
   //Debug
   console.log(index);
   //Cambia La posición del marcador que cambio
-  Markers[index].setPosition({ lat: Cambio.Lat, lng: Cambio.Long });
+  Markers[index].setPosition({
+    lat: Cambio.Lat,
+    lng: Cambio.Long
+  });
   if (Markers[index].Estado != Cambio.Estado) {
     Markers[index].setIcon("iconos/MAPA/brigadista%20inactivo/32/empleados%20(22).png")
 
